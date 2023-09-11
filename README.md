@@ -6,7 +6,6 @@ Welcome to the Checklist Improvement Project! This project is designed to help c
 - [Features](#features)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
