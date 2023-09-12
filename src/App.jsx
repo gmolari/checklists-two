@@ -3,8 +3,6 @@ import { UserProvider } from './context/Context'
 
 function App() {
 
-  console.log(checklists)
-
   return (
     <UserProvider>
 

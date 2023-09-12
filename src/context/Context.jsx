@@ -6,13 +6,16 @@ const Context = createContext()
 function UserProvider({children}){
     const [type, setType] = useState('');
     const [check, setCheck] = useState('');
+    const [mainAnswers, setMainAnswers] = useState('');
 
     useEffect(() => {
         const lType = localStorage.type
         const lCheck = localStorage.check
 
-        lType ? setType(lType) : setType('')
-        lCheck ? setCheck(lCheck) : setCheck('')
+        if (lType && lCheck){
+            setType(lType)
+            setCheck(lCheck)
+        }
     },[])
 
     return (
@@ -20,8 +23,9 @@ function UserProvider({children}){
             {
                 type,
                 check,
+                mainAnswers,
                 setType,
-                setCheck
+                setCheck,
             }
         }>
             {children}
