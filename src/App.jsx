@@ -1,18 +1,21 @@
 import { UserProvider } from './context/Context'
 import Form from './components/Form'
+import Menu from './components/Menu'
 
 function App() {
 
   return (
     <UserProvider>
 
-      <main>
+        <div className="main-container">
 
-        <div className="container-form">
-          <Form />
+          <Menu />
+
+          <main className="container-form">
+            <Form />
+          </main>
+        
         </div>
-      
-      </main>
 
     </UserProvider>
   )

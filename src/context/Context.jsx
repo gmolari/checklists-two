@@ -4,8 +4,9 @@ import { useState } from "react";
 const Context = createContext()
 
 function UserProvider({children}){
-    const [type, setType] = useState('attendance');
-    const [check, setCheck] = useState('fiber');
+    const [type, setType] = useState('attendance')
+    const [check, setCheck] = useState('fiber')
+    const [cTab, setCTab] = useState('')
     const [tabs, setTabs] = useState([])
     const [mainAnswers, setMainAnswers] = useState({});
     const [cAnswers, setCAnswers] = useState({})
@@ -32,6 +33,13 @@ function UserProvider({children}){
         if (mainAnswers) setCAnswers(mainAnswers)
 
     }, [mainAnswers])
+
+    useEffect(() => {
+        localStorage.setItem('type', type)
+
+        console.log(type)
+
+    }, [type])
 
     return (
         <Context.Provider value={

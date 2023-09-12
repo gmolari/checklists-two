@@ -7,18 +7,18 @@ export default function Question({question, id}){
     const [myAnswer, setMyAnswer] = useState(cAnswers?.id)
 
     function handleAns(e){
-        console.log('setting myAnswer')
+        // console.log('setting myAnswer')
         setMyAnswer(e.target.value)
     }
 
     useEffect(() => {
-        console.log('setting mainAnswers')
+        // console.log('setting mainAnswers')
         if (myAnswer) setMainAnswers({...mainAnswers, [id]: myAnswer })
     }, [myAnswer])
 
-    useEffect(() => {
-        console.log(mainAnswers)
-    }, [mainAnswers])
+    // useEffect(() => {
+    //     console.log(mainAnswers)
+    // }, [mainAnswers])
 
     return (
         <div className="container-question">
