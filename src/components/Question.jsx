@@ -1,24 +1,29 @@
 import {useContext, useEffect, useState } from "react"
 import { Context } from "../context/Context"
 
-export default function Question({question, ans, id}){
-    const [myAns, setMyAns] = useState(ans ? ans : '')
+export default function Question({question, id}){
+    const {cAnswers, mainAnswers, setMainAnswers} = useContext(Context)
 
-    const {type, check, mainAnswers} = useContext(Context)
+    const [myAnswer, setMyAnswer] = useState(cAnswers?.id)
 
     function handleAns(e){
-        setMyAns(e.target.value)
+        console.log('setting myAnswer')
+        setMyAnswer(e.target.value)
     }
 
     useEffect(() => {
-        //setar o ans total como esse
+        console.log('setting mainAnswers')
+        if (myAnswer) setMainAnswers({...mainAnswers, [id]: myAnswer })
+    }, [myAnswer])
 
-    }, [myAns])
+    useEffect(() => {
+        console.log(mainAnswers)
+    }, [mainAnswers])
 
     return (
         <div className="container-question">
             <label htmlFor={id}> { question } </label>
-            <textarea onChange={handleAns} id={id} defaultValue={ans ? ans : ''}></textarea>
+            <textarea onChange={handleAns} id={id} defaultValue={myAnswer}></textarea>
             {/* <input type="text" id={id} /> */}
         </div>
     )

@@ -1,3 +1,8 @@
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
 $main-black: #040D12
 $green-one: #183D3D
 $green-two: #5C8374
@@ -7,5 +12,32 @@ $green-three: #93B1A6
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
   background-color: $main-black
 
-p
-  color: $green-three
+main
+  margin: 1rem
+
+.container-form
+  width: 60%
+
+  form
+    display: flex
+    flex-direction: column
+    font-size: 1.2rem
+    text-align: justify
+
+    .container-question
+      display: flex
+      flex-direction: column
+      color: $green-three
+
+      textarea
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+        background: $green-one
+        border: none
+        border-radius: 0 0 1rem 1rem
+        outline: none
+        color: $green-three
+        max-width: 99%
+        min-width: 99%
+        min-height: 3rem
+        font-size: 1.1rem
+

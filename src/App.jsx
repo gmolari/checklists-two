@@ -1,16 +1,18 @@
-import checklists from './util/checklists'
 import { UserProvider } from './context/Context'
+import Form from './components/Form'
 
 function App() {
 
   return (
     <UserProvider>
 
-      {
-        checklists?.attendance?.checks?.fiber?.questions?.map(i => (
-          <p>{i}</p>
-        ))
-      }
+      <main>
+
+        <div className="container-form">
+          <Form />
+        </div>
+      
+      </main>
 
     </UserProvider>
   )
