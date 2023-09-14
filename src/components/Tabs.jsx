@@ -9,7 +9,7 @@ export default function Tabs(){
         <div className="tabs">
             <div className="container-menu">
                 {tabs?.map(tab => (
-                    <Tab type={type} check={check} answers={mainAnswers}/>
+                    <Tab key={tabs?.indexOf(tab)} type={tab.type} check={tab.check} answers={tab.mainAnswers}/>
                 ))}
             </div>
         </div>

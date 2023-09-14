@@ -16,12 +16,15 @@ export default function Checklists(){
 
     function handleCheck(src){
         setCheck(src)
-        newTab()
+        newTab('teste', src)
     }
 
     return (
         <aside className="checklists">
             <div className="container-menu">
+                <h2 className="check">
+                    CHECKLISTS
+                </h2>
                 {
                     checks?.map(i => (
                         <Button key={checks.indexOf(i)} func={handleCheck} data={i.src} content={i.name} />

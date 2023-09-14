@@ -22,6 +22,9 @@ export default function Menu({keyCheck}){
     return (
         <div className="menu">
             <div className="container-menu">
+            <h2>
+                TIPOS
+            </h2>
                 {
                     types?.map(i => (
                         <Button key={types.indexOf(i)} func={handleType} data={i.src} content={i.name} />

@@ -7,15 +7,14 @@ const Context = createContext()
 function UserProvider({children}){
     const [type, setType] = useState('')
     const [check, setCheck] = useState('')
-    const [tab, setTab] = useState('')
+    const [tab, setTab] = useState({})
     const [tabs, setTabs] = useState([])
     const [mainAnswers, setMainAnswers] = useState({})
-    const [cAnswers, setCAnswers] = useState({})
     const [questions, setQuestions] = useState([])
     const [nameQ, setNameQ] = useState('')
 
 
-    function newTab(name){
+    function newTab(name, check){
         let id = Math.floor(Math.random() * 99999)
         let idFree = true
 
@@ -29,10 +28,16 @@ function UserProvider({children}){
             }
         }while(!idFree)
         
-        const tabNew = {id, name, type, check, answers: mainAnswers}
+        const tabNew = {id, name, type, check, answers: {}}
 
         setTabs([...tabs, tabNew])
         setTab(tabNew)
+    }
+
+    function clickTab(cType, cCheck, cAnswers){
+        setType(cType)
+        setCheck(cCheck)
+        setMainAnswers(cAnswers)
     }
 
     useEffect(() => {
@@ -46,7 +51,7 @@ function UserProvider({children}){
     }, [])
 
     useEffect(() => {
-        if (mainAnswers) setCAnswers(mainAnswers)
+        console.log(mainAnswers)
     }, [mainAnswers])
 
     useEffect(() => {
@@ -66,7 +71,6 @@ function UserProvider({children}){
     }, [tabs])
 
     useEffect(() => {
-        console.log(tab)
         localStorage.setItem('tab', JSON.stringify(tab))
 
         let currentLocalAnswers = {}
@@ -78,7 +82,7 @@ function UserProvider({children}){
         }
         
         setType(tab.type)
-        setCheck(tab.type)
+        setCheck(tab.check)
         
         setMainAnswers(currentLocalAnswers)
     },[tab])
@@ -89,7 +93,6 @@ function UserProvider({children}){
                 type,
                 check,
                 mainAnswers,
-                cAnswers,
                 questions,
                 nameQ,
                 tab,
@@ -97,7 +100,6 @@ function UserProvider({children}){
                 setType,
                 setCheck,
                 setMainAnswers,
-                setCAnswers,
                 setQuestions,
                 setNameQ,
                 setTab,
