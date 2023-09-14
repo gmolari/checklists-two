@@ -1,8 +1,10 @@
 import Question from "./Question"
 import checklists from '../util/checklists'
+import { useContext } from "react"
+import { Context } from "../context/Context"
 
 export default function Form(){
-    const questions = checklists?.attendance?.checks?.fiber?.questions
+    const {questions} = useContext(Context)
 
     return (
         <form>

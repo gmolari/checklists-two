@@ -3,7 +3,7 @@ import { useState, useContext } from "react"
 import Button from "./Button"
 import { Context } from "../context/Context"
 
-export default function Menu(){
+export default function Menu({keyCheck}){
     const {setType} = useContext(Context)
 
     const [types, setTypes] = useState([])
@@ -16,15 +16,18 @@ export default function Menu(){
 
     function handleType(src){
         setType(src)
+        keyCheck(Math.random())
     }
 
     return (
         <aside className="menu">
-            {
-                types?.map(i => (
-                    <Button key={types.indexOf(i)} func={handleType} data={i.src} content={i.name} />
-                ))
-            }
+            <div className="container-menu">
+                {
+                    types?.map(i => (
+                        <Button key={types.indexOf(i)} func={handleType} data={i.src} content={i.name} />
+                    ))
+                }
+            </div>
         </aside>
     )
 }
