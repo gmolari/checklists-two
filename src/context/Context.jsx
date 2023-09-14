@@ -12,6 +12,7 @@ function UserProvider({children}){
     const [mainAnswers, setMainAnswers] = useState({})
     const [cAnswers, setCAnswers] = useState({})
     const [questions, setQuestions] = useState([])
+    const [nameQ, setNameQ] = useState('')
 
     useEffect(() => {
         const lType = localStorage.type
@@ -54,6 +55,12 @@ function UserProvider({children}){
         }
     }, [check])
 
+    useEffect(() => {
+        if (type && check){
+            setNameQ(checklists[type].checks[check]?.name[0])
+        }
+    }, [questions])
+
     return (
         <Context.Provider value={
             {
@@ -62,11 +69,13 @@ function UserProvider({children}){
                 mainAnswers,
                 cAnswers,
                 questions,
+                nameQ,
                 setType,
                 setCheck,
                 setMainAnswers,
                 setCAnswers,
-                setQuestions
+                setQuestions,
+                setNameQ
             }
         }>
             {children}
