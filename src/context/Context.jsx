@@ -7,49 +7,49 @@ const Context = createContext()
 function UserProvider({children}){
     const [type, setType] = useState('')
     const [check, setCheck] = useState('')
-    const [cTab, setCTab] = useState('')
+    const [tab, setTab] = useState('')
     const [tabs, setTabs] = useState([])
     const [mainAnswers, setMainAnswers] = useState({})
     const [cAnswers, setCAnswers] = useState({})
     const [questions, setQuestions] = useState([])
     const [nameQ, setNameQ] = useState('')
 
+
+    function newTab(name){
+        let id = Math.floor(Math.random() * 99999)
+        let idFree = true
+
+        do{
+            for(let i in tabs){
+                if (id == tabs[i].id) {
+                    id = Math.floor(Math.random() * 99999)
+                    idFree = false
+                    break
+                }
+            }
+        }while(!idFree)
+        
+        const tabNew = {id, name, type, check, answers: mainAnswers}
+
+        setTabs([...tabs, tabNew])
+        setTab(tabNew)
+    }
+
     useEffect(() => {
-        const lType = localStorage.type
-        const lCheck = localStorage.check
         const lTabs = localStorage.tabs
-        let currentLocalAnswers = {}
+        const lTab = localStorage.tab
 
         if (lTabs) setTabs(JSON.parse(lTabs))
-
-        if (lType && lCheck){
-            try {
-                currentLocalAnswers = JSON.parse(localStorage.answers).type.check
-            } catch (error) {
-                
-            }
-            
-            
-            setType(lType)
-            setCheck(lCheck)
-            
-            setMainAnswers(currentLocalAnswers)
+        if (lTab) {
+            setTab(JSON.parse(lTab))
         }
     }, [])
 
     useEffect(() => {
-
         if (mainAnswers) setCAnswers(mainAnswers)
-
     }, [mainAnswers])
 
     useEffect(() => {
-        localStorage.setItem('type', type)
-    }, [type])
-
-    useEffect(() => {
-        localStorage.setItem('check', check)
-
         if (type && check){
             setQuestions(checklists[type].checks[check].questions)
         }
@@ -61,6 +61,28 @@ function UserProvider({children}){
         }
     }, [questions])
 
+    useEffect(() => {
+        localStorage.setItem('tabs', JSON.stringify(tabs))
+    }, [tabs])
+
+    useEffect(() => {
+        console.log(tab)
+        localStorage.setItem('tab', JSON.stringify(tab))
+
+        let currentLocalAnswers = {}
+
+        try {
+            currentLocalAnswers = JSON.parse(localStorage.answers).type.check
+        } catch (error) {
+            
+        }
+        
+        setType(tab.type)
+        setCheck(tab.type)
+        
+        setMainAnswers(currentLocalAnswers)
+    },[tab])
+
     return (
         <Context.Provider value={
             {
@@ -70,12 +92,17 @@ function UserProvider({children}){
                 cAnswers,
                 questions,
                 nameQ,
+                tab,
+                tabs,
                 setType,
                 setCheck,
                 setMainAnswers,
                 setCAnswers,
                 setQuestions,
-                setNameQ
+                setNameQ,
+                setTab,
+                setTabs,
+                newTab
             }
         }>
             {children}

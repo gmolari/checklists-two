@@ -2,6 +2,7 @@ import { UserProvider } from './context/Context'
 import Form from './components/Form'
 import Menu from './components/Menu'
 import Checklists from './components/Checklists'
+import Tabs from './components/Tabs'
 import { useState } from 'react'
 
 function App() {
@@ -13,7 +14,10 @@ function App() {
 
         <div className="main-container">
 
-          <Menu keyCheck={setKeyCheck}/>
+          <aside className="first-menu">
+            <Menu keyCheck={setKeyCheck}/>
+            <Tabs />
+          </aside>
 
           <main className="container-form">
             <Form />

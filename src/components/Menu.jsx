@@ -20,7 +20,7 @@ export default function Menu({keyCheck}){
     }
 
     return (
-        <aside className="menu">
+        <div className="menu">
             <div className="container-menu">
                 {
                     types?.map(i => (
@@ -28,6 +28,6 @@ export default function Menu({keyCheck}){
                     ))
                 }
             </div>
-        </aside>
+        </div>
     )
 }

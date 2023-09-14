@@ -4,7 +4,7 @@ import Button from "./Button"
 import { Context } from "../context/Context"
 
 export default function Checklists(){
-    const {setCheck, type} = useContext(Context)
+    const {setCheck, type, newTab} = useContext(Context)
 
     const [checks, setChecks] = useState([])
     
@@ -16,6 +16,7 @@ export default function Checklists(){
 
     function handleCheck(src){
         setCheck(src)
+        newTab()
     }
 
     return (
