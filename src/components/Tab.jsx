@@ -1,23 +1,22 @@
 import { useContext, useEffect, useState } from "react"
 import { Context } from "../context/Context"
 
-export default function Tab({name, type, check, answers}){
-    const {clickTab} = useContext(Context)
+export default function Tab({me}){
+    const {clickTab, activeTab} = useContext(Context)
+    const [active, setActive] = useState()
 
-    const [active, setActive] = useState(true)
-
-    function hanldeMe(){
-        setActive(true)
-        clickTab(type, check, answers)
+    function handleMe(){
+        clickTab(me)
     }
 
     useEffect(() => {
-
+        if (activeTab == me.id) setActive(true)
+        else setActive(false)
     }, [])
 
     return (
-        <div className="tab">
-            {name ? name: 'new tab'}
+        <div onClick={handleMe} className={active ? "tab active" : "tab inactive"}>
+            {me?.name ? me.name : 'new tab'}
         </div>
     )
 }

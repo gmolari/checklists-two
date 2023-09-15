@@ -12,6 +12,10 @@ function UserProvider({children}){
     const [mainAnswers, setMainAnswers] = useState({})
     const [questions, setQuestions] = useState([])
     const [nameQ, setNameQ] = useState('')
+    const [activeTab, setActiveTab] = useState('')
+
+    const [keyForm, setKeyForm] = useState(Math.random())
+    const [initAns, setInitAns] = useState(Math.random())
 
 
     function newTab(name, check){
@@ -28,16 +32,39 @@ function UserProvider({children}){
             }
         }while(!idFree)
         
-        const tabNew = {id, name, type, check, answers: {}}
+        const tabNew = {id, name, type, check}
 
         setTabs([...tabs, tabNew])
         setTab(tabNew)
     }
 
-    function clickTab(cType, cCheck, cAnswers){
-        setType(cType)
-        setCheck(cCheck)
-        setMainAnswers(cAnswers)
+    function clickTab(tab){
+        setTab(tab)
+    }
+
+    function initAnswers(){
+        const lTab = localStorage[tab.id]
+
+        if (!lTab) {
+            let cQuest = {}
+            for (let i in questions){
+                cQuest[i] = ''
+            }
+
+            if (tab.id) {
+                localStorage.setItem(tab.id, JSON.stringify(cQuest))
+                setMainAnswers(cQuest)
+            }
+        }
+
+        if (lTab && tab){
+            setMainAnswers(JSON.parse(lTab))
+        }
+        setKeyForm(Math.random())
+    }
+    
+    function updateAnswers(){
+        if (tab.id) localStorage.setItem(tab.id, JSON.stringify(mainAnswers))
     }
 
     useEffect(() => {
@@ -51,20 +78,27 @@ function UserProvider({children}){
     }, [])
 
     useEffect(() => {
-        console.log(mainAnswers)
+        updateAnswers()
     }, [mainAnswers])
 
     useEffect(() => {
         if (type && check){
             setQuestions(checklists[type].checks[check].questions)
         }
+        
     }, [check])
 
     useEffect(() => {
         if (type && check){
             setNameQ(checklists[type].checks[check]?.name[0])
         }
+
+        setInitAns(Math.random())
     }, [questions])
+
+    useEffect(() => {
+        initAnswers()
+    }, [initAns])
 
     useEffect(() => {
         localStorage.setItem('tabs', JSON.stringify(tabs))
@@ -72,19 +106,10 @@ function UserProvider({children}){
 
     useEffect(() => {
         localStorage.setItem('tab', JSON.stringify(tab))
-
-        let currentLocalAnswers = {}
-
-        try {
-            currentLocalAnswers = JSON.parse(localStorage.answers).type.check
-        } catch (error) {
-            
-        }
-        
         setType(tab.type)
         setCheck(tab.check)
-        
-        setMainAnswers(currentLocalAnswers)
+
+        setInitAns(Math.random())
     },[tab])
 
     return (
@@ -97,6 +122,8 @@ function UserProvider({children}){
                 nameQ,
                 tab,
                 tabs,
+                activeTab,
+                keyForm,
                 setType,
                 setCheck,
                 setMainAnswers,
@@ -104,7 +131,10 @@ function UserProvider({children}){
                 setNameQ,
                 setTab,
                 setTabs,
-                newTab
+                newTab,
+                setActiveTab,
+                clickTab,
+                updateAnswers
             }
         }>
             {children}

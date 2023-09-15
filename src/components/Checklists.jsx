@@ -1,5 +1,5 @@
 import checklists from "../util/checklists"
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext } from "react"
 import Button from "./Button"
 import { Context } from "../context/Context"
 
@@ -22,9 +22,11 @@ export default function Checklists(){
     return (
         <aside className="checklists">
             <div className="container-menu">
-                <h2 className="check">
-                    CHECKLISTS
-                </h2>
+                {
+                    checks.length > 0 && <h2 className="check">
+                        CHECKLISTS
+                    </h2>
+                }
                 {
                     checks?.map(i => (
                         <Button key={checks.indexOf(i)} func={handleCheck} data={i.src} content={i.name} />

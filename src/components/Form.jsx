@@ -6,12 +6,6 @@ import { Context } from "../context/Context"
 export default function Form(){
     const {questions, nameQ, setMainAnswers, mainAnswers} = useContext(Context)
 
-    useEffect(() => {
-        for (const i in questions){
-            if (!mainAnswers[questions.indexOf(i)]) setMainAnswers({...mainAnswers, [questions.indexOf(i)]: ''})
-        }
-    }, [])
-
     return (
         <form>
             <h2> {nameQ} </h2>

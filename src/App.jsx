@@ -1,33 +1,30 @@
-import { UserProvider } from './context/Context'
+import { Context } from './context/Context'
 import Form from './components/Form'
 import Menu from './components/Menu'
 import Checklists from './components/Checklists'
 import Tabs from './components/Tabs'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 function App() {
 
   const [keyCheck, setKeyCheck] = useState(Math.random())
+  const {keyForm} = useContext(Context)
 
   return (
-    <UserProvider>
+      <div className="main-container">
 
-        <div className="main-container">
+        <aside className="first-menu">
+          <Menu keyCheck={setKeyCheck}/>
+          <Tabs />
+        </aside>
 
-          <aside className="first-menu">
-            <Menu keyCheck={setKeyCheck}/>
-            <Tabs />
-          </aside>
+        <main className="container-form">
+          <Form key={keyForm}/>
+        </main>
 
-          <main className="container-form">
-            <Form />
-          </main>
+        <Checklists key={keyCheck}/>
 
-          <Checklists key={keyCheck}/>
-        
-        </div>
-
-    </UserProvider>
+      </div>
   )
 }
 
