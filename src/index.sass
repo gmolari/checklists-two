@@ -12,6 +12,20 @@ $green-three: #93B1A6
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
   background-color: $main-black
 
+.input-template
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+  background: $green-one
+  border: none
+  border-radius: 0rem 1rem 0 1rem
+  outline: none
+  color: $green-three
+  max-width: 99%
+  min-width: 99%
+  min-height: 3rem
+  height: 3rem
+  font-size: 1.1rem
+  padding: .5rem
+
 .main-container
   width: 99vw
   display: grid
@@ -99,18 +113,7 @@ main
       color: $green-three
 
       textarea
-        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
-        background: $green-one
-        border: none
-        border-radius: 0rem 1rem 0 1rem
-        outline: none
-        color: $green-three
-        max-width: 99%
-        min-width: 99%
-        min-height: 3rem
-        height: 3rem
-        font-size: 1.1rem
-        padding: .5rem
+        @extend .input-template
 
 .default-button
   background: $green-one
@@ -119,5 +122,58 @@ main
   border: none
   border-radius: 1rem 0 1rem 0
     
+
+.ReactModal__Overlay
+  display: flex
+  align-items: center
+  justify-content: center
+
+.ReactModal__Content
+  border: 2px solid red
+  width: 50%
+  height: 50%
+
+.container-modal
+  height: 100%
+  display: flex
+  flex-direction: column
+  color: $green-three
+  justify-content: space-evenly
+
+  h2
+    text-align: center
+    font-size: 1.5rem
+    text-transform: uppercase
+
+  .container-nfield
+    display: flex
+    flex-direction: column
+    gap: .5rem
+
+    label
+      font-size: 1.3rem
+
+    input
+      @extend .input-template
+  
+  .buttons
+    display: flex
+    justify-content: space-evenly
+
+    button
+      &:hover
+      cursor: pointer
+
+    .cancel
+      background: #400C0C
+      color: #F44E4E
+
+    .confirm
+      background: $green-two
+      color: $main-black
+
+    
+
+
 
 

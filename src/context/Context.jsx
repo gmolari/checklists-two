@@ -13,12 +13,40 @@ function UserProvider({children}){
     const [questions, setQuestions] = useState([])
     const [nameQ, setNameQ] = useState('')
     const [activeTab, setActiveTab] = useState('')
+    const [nameTec, setNameTec] = useState('')
+
+    const [fieldValue, setValue] = useState('')
+
+    const [modal, setModal] = useState(false)
+    const [typeModal, setTypeModal] = useState('')
+    const [modalCheck, setModalCheck] = useState('')
 
     const [keyForm, setKeyForm] = useState(Math.random())
     const [initAns, setInitAns] = useState(Math.random())
 
 
-    function newTab(name, check){
+    function closeModal(){
+        setModal(false)
+    }
+
+    function openModal(){
+        setModal(true)
+    }
+
+    function newTab(check){
+
+        function makeid(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%£¢';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+              counter += 1;
+            }
+            return result;
+        }
+
         let id = Math.floor(Math.random() * 99999)
         let idFree = true
 
@@ -32,7 +60,7 @@ function UserProvider({children}){
             }
         }while(!idFree)
         
-        const tabNew = {id, name, type, check}
+        const tabNew = {id, name: fieldValue ? fieldValue : makeid(6), type, check}
 
         setTabs([...tabs, tabNew])
         setTab(tabNew)
@@ -67,15 +95,25 @@ function UserProvider({children}){
         if (tab.id) localStorage.setItem(tab.id, JSON.stringify(mainAnswers))
     }
 
+    function updateNameTec(){
+        setNameTec(fieldValue)
+    }
+
     useEffect(() => {
         const lTabs = localStorage.tabs
         const lTab = localStorage.tab
+        const lTec = localStorage.tec
 
         if (lTabs) setTabs(JSON.parse(lTabs))
-        if (lTab) {
-            setTab(JSON.parse(lTab))
-        }
+        
+        if (lTab) setTab(JSON.parse(lTab))
+
+        if (lTec) setNameTec(lTec)
     }, [])
+
+    useEffect(() => {
+        if (nameTec) localStorage.setItem('tec', nameTec) 
+    }, [nameTec])
 
     useEffect(() => {
         updateAnswers()
@@ -112,6 +150,10 @@ function UserProvider({children}){
         setInitAns(Math.random())
     },[tab])
 
+    useEffect(() => {
+        if (typeModal) openModal()
+    }, [typeModal])
+
     return (
         <Context.Provider value={
             {
@@ -124,6 +166,11 @@ function UserProvider({children}){
                 tabs,
                 activeTab,
                 keyForm,
+                modal,
+                fieldValue,
+                typeModal,
+                nameTec,
+                modalCheck,
                 setType,
                 setCheck,
                 setMainAnswers,
@@ -134,7 +181,14 @@ function UserProvider({children}){
                 newTab,
                 setActiveTab,
                 clickTab,
-                updateAnswers
+                updateAnswers,
+                closeModal,
+                openModal,
+                setValue,
+                setTypeModal,
+                setNameTec,
+                updateNameTec,
+                setModalCheck,
             }
         }>
             {children}

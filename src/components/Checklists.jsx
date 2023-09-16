@@ -4,7 +4,7 @@ import Button from "./Button"
 import { Context } from "../context/Context"
 
 export default function Checklists(){
-    const {setCheck, type, newTab} = useContext(Context)
+    const {type, setTypeModal, setModalCheck} = useContext(Context)
 
     const [checks, setChecks] = useState([])
     
@@ -14,9 +14,9 @@ export default function Checklists(){
         }
     }
 
-    function handleCheck(src){
-        setCheck(src)
-        newTab('teste', src)
+    function handleCheck(data){
+        setModalCheck(data)
+        setTypeModal('tabName')
     }
 
     return (
@@ -29,7 +29,7 @@ export default function Checklists(){
                 }
                 {
                     checks?.map(i => (
-                        <Button key={checks.indexOf(i)} func={handleCheck} data={i.src} content={i.name} />
+                        <Button key={checks.indexOf(i)} func={handleCheck} data={{src: i.src, check: i.name}} content={i.name} />
                     ))
                 }
             </div>
