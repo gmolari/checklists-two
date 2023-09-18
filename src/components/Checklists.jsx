@@ -29,7 +29,7 @@ export default function Checklists(){
                 }
                 {
                     checks?.map(i => (
-                        <Button key={checks.indexOf(i)} func={handleCheck} data={{src: i.src, check: i.name}} content={i.name} />
+                        <Button key={checks.indexOf(i)} myClass={'button-check'} func={handleCheck} data={{src: i.src, check: i.name}} content={i.name} />
                     ))
                 }
             </div>

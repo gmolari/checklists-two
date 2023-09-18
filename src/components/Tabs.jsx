@@ -3,7 +3,7 @@ import { Context } from "../context/Context"
 import Tab from "./Tab"
 
 export default function Tabs(){
-    const {tabs, type, check, mainAnswers} = useContext(Context)
+    const {tabs} = useContext(Context)
 
     return (
         <div className="tabs">

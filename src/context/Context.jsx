@@ -24,6 +24,10 @@ function UserProvider({children}){
     const [keyForm, setKeyForm] = useState(Math.random())
     const [initAns, setInitAns] = useState(Math.random())
 
+    function deleteTab(id){
+        const cTab = tabs.find(tab => tab.id == id)
+        tabs.splice(tabs.indexOf(cTab), 1)
+    }
 
     function closeModal(){
         setModal(false)
@@ -189,6 +193,7 @@ function UserProvider({children}){
                 setNameTec,
                 updateNameTec,
                 setModalCheck,
+                deleteTab
             }
         }>
             {children}
