@@ -24,13 +24,17 @@ function UserProvider({children}){
     const [keyForm, setKeyForm] = useState(Math.random())
     const [initAns, setInitAns] = useState(Math.random())
 
-    function deleteTab(id){
-        const cTab = tabs.find(tab => tab.id == id)
-        tabs.splice(tabs.indexOf(cTab), 1)
+    function deleteTab(me){
+        const cAns = localStorage.getItem(me.id)
+        if (cAns) localStorage.removeItem(me.id)
+        const updatedItems = tabs.filter((item) => item !== me);
+        setTabs(updatedItems)
+        setTab({})
     }
 
     function closeModal(){
         setModal(false)
+        setTypeModal(false)
     }
 
     function openModal(){
@@ -155,7 +159,9 @@ function UserProvider({children}){
     },[tab])
 
     useEffect(() => {
-        if (typeModal) openModal()
+        if (typeModal) {
+           openModal()
+        }
     }, [typeModal])
 
     return (

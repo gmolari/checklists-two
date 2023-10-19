@@ -4,6 +4,8 @@ import { Context } from "../context/Context"
 import { useContext } from "react"
 
 function TabName(){
+
+
     const {closeModal, newTab, modalCheck} = useContext(Context)
 
     function confirm(data){
@@ -60,7 +62,6 @@ const Modal = {
 }
 
 export default function DinamicModal({type}) {
-    console.log(type)
     return (
         <div className="container-modal">
 
