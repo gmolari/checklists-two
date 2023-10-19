@@ -29,7 +29,10 @@ function UserProvider({children}){
         if (cAns) localStorage.removeItem(me.id)
         const updatedItems = tabs.filter((item) => item !== me);
         setTabs(updatedItems)
-        setTab({})
+        if (me == tab){
+            let nTab = tabs[tabs.indexOf(tab)-1]
+            setTab(nTab ? nTab : {})
+        }
     }
 
     function closeModal(){
